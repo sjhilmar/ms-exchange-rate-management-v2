@@ -1,0 +1,50 @@
+openapi: 3.0.3
+info:
+  title: Exchange Rate API
+  description: API that provides the exchange rate from dollars to soles of the day.
+  version: "1.0.0"
+servers:
+  - url: https://free.e-api.net.pe
+    description: External API for exchange rates
+tags:
+  - name: Exchange Rate
+    description: Operations related to exchange rates
+paths:
+  /tipo-cambio/today.json:
+    get:
+      tags:
+        - Exchange Rate
+      summary: Get exchange rates of the day.
+      operationId: getCurrentExchangeRate
+      responses:
+        200:
+          description: La petición se procesó correctamente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ExchangeRateResponse"
+components:
+  schemas:
+    ExchangeRateResponse:
+      type: object
+      properties:
+        fecha:
+          type: string
+          format: date
+          description: Fecha de consulta del tipo de cambio
+          example: "2025-08-10"
+        sunat:
+          type: number
+          minimum: 0
+          description: Tipo de cambio sunat
+          example: 3.531
+        compra:
+          type: number
+          minimum: 0
+          description: Valor compra del tipo de cambio
+          example: 3.527
+        venta:
+          type: number
+          minimum: 0
+          description: Valor venta del tipo de cambio
+          example: 3.535
